@@ -155,6 +155,9 @@ function main(){
 
 function resetState(){
 	day = 0;
+	for (var i in items) {
+		items[i].resetInhand();
+	}
 	main();
 }
 
