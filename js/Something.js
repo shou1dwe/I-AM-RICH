@@ -14,3 +14,9 @@ Something.prototype.updatePrice = function() {
 Something.prototype.getInhandAveragePrice = function() {
 	return this.inhandQuantity > 0 ? this.inhandCost / this.inhandQuantity : 0;
 };
+
+Something.prototype.resetInhand = function() {
+	this.currentPrice = 999999999;
+	this.inhandQuantity = 0;
+	this.inhandCost = 0.0;
+};
