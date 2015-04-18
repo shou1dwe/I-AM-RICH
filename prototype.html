@@ -3,90 +3,14 @@
 <head>
 	<meta charset="utf-8">
 	<title>A Shiny Prototype</title>
+	<script src="http://fb.me/react-0.13.1.min.js"></script>
+	<script src="http://fb.me/JSXTransformer-0.13.1.js"></script>
 </head>
 <body>
-	<div>
-		<div class="heading-container">
-			<div class="timer-container">
-				Day: <span id="day-value">0</span>
-			</div>
-			<div class="scores-container">
-				Net Asset: <span id="total-value">0</span>
-			</div>
-		</div>
-		<div class="market-container">
-			<h2>市价</h2>
-			<div id="market-0-container">
-				<span id="0-name"></span>
-				<span id="0-price"></span>元
-			</div>
-			<div id="market-1-container">
-				<span id="1-name"></span>
-				<span id="1-price"></span>元
-			</div>
-			<div id="market-2-container">
-				<span id="2-name"></span>
-				<span id="2-price"></span>元
-			</div>
-			<div id="market-3-container">
-				<span id="3-name"></span>
-				<span id="3-price"></span>元
-			</div>
-		</div>
-		<div class="asset-container">
-			<h2>资产</h2>
-			<div>
-				Cash: <span id="cash-value">0</span>
-			</div>
-			<div id="stock-container">
-				<div id="stock-0-container">
-					<span id="0-stock-name"></span>
-					<span id="0-stock-quantity"></span>
-				</div>
-				<div id="stock-1-container">
-					<span id="1-stock-name"></span>
-					<span id="1-stock-quantity"></span>
-				</div>
-				<div id="stock-2-container">
-					<span id="2-stock-name"></span>
-					<span id="2-stock-quantity"></span>
-				</div>
-				<div id="stock-3-container">
-					<span id="3-stock-name"></span>
-					<span id="3-stock-quantity"></span>
-				</div>
-			</div>
-		</div>
-		<div>
-			<div class="buy-container">
-				<select id="buy-option-container" name="buy-option-container">
-					<option id="buy-option-0" value="0"></option>
-					<option id="buy-option-1" value="1"></option>
-					<option id="buy-option-2" value="2"></option>
-					<option id="buy-option-3" value="3"></option>
-				</select>
-				<input type="number" id="buy-quantity" name="buy-quantity" />
-				<button onclick="onBuyClick()">Buy</button>
-			</div>
-			<div class="sell-container">
-				<select id="sell-option-container" name="sell-option-container">
-					<option id="sell-option-0" value="0"></option>
-					<option id="sell-option-1" value="1"></option>
-					<option id="sell-option-2" value="2"></option>
-					<option id="sell-option-3" value="3"></option>
-				</select>
-				<input type="number" id="sell-quantity" name="sell-quantity" />
-				<button onclick="onSellClick()">Sell</button>
-			</div>
-			<div class="offwork-container">
-				<br />
-				<button onclick="onOffworkClick()">New Day</button>
-			</div>
-		</div>
+	<div id="container">
 	</div>
 
-
 	<script src="js/Something.js"></script>
-	<script src="js/game.js"></script>
+	<script type="text/jsx" src="js/game.jsx"></script>
 </body>
 </html>
