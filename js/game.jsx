@@ -88,11 +88,11 @@ var DaContainer = React.createClass({
 	render: function(){
 		return (
 			<div>
-				<HeadingContainer day={this.state.day} totalAsset={this.state.totalAsset} />
+				<HeadingContainer day={this.state.day} 
+								  totalAsset={this.state.totalAsset}
+								  cash={this.state.money} />
 				<MarketContainer items={this.state.items}/>
-				<AssetContainer cash={this.state.money} stocks={this.state.items}/>
-				<ControlContainer cash={this.state.money}
-								  items={this.state.items}
+				<ControlContainer items={this.state.items}
 								  onBuyClick={this.handleBuySellAction} 
 								  onSellClick={this.handleBuySellAction}
 								  onNextDayClick={this.handleNextDayAction} />
@@ -109,7 +109,8 @@ var HeadingContainer = React.createClass({
 					Day: <span >{this.props.day}</span>
 				</div>
 				<div className="scores-container">
-					Net Asset: <span >{this.props.totalAsset}</span>
+					Net Asset: <span >{this.props.totalAsset}</span><br/>
+					Cash: <span >{this.props.cash}</span>
 				</div>
 			</div>
 		);
@@ -121,39 +122,16 @@ var MarketContainer = React.createClass({
 		var items = this.props.items;
 		return (
 			<div className="market-container">
-				<h2>市价</h2>
+				<div>Market Price</div>
 					{items.map(function(item) {
-						return (
+						return (<div>
 							<div>
-								<span>{item.itemName}</span>
-								<span>{item.currentPrice}</span>元
+								<span>{item.itemName}</span> <span>{item.currentPrice} </span>元
+							</div>
+							<div><span>{item.inhandQuantity} 个</span></div>
 							</div>
 							);
 					})}
-			</div>
-		);
-	}
-});
-
-var AssetContainer = React.createClass({
-	render: function(){
-		var stocks = this.props.stocks;
-		return (
-			<div className="asset-container">
-				<h2>资产</h2>
-				<div>
-					Cash: <span>{this.props.cash}</span>
-				</div>
-				<div className="stock-container">
-					{stocks.map(function(stock) {
-						return (
-							<div>
-								<span>{stock.itemName}</span>
-								<span>{stock.inhandQuantity} 个</span>
-							</div>
-						);
-					})}
-				</div>
 			</div>
 		);
 	}
