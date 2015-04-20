@@ -1,0 +1,55 @@
+@font-face {
+font-family: PixelEmulator;
+src: url("pixel-emulator.otf") format("opentype");
+}
+
+* {
+  font-family: PixelEmulator;
+  color: #776e65;
+}
+
+html, body {
+  background: #faf8ef;
+  font-size: 18px;
+  max-width: 768px;
+  padding: 10px;
+  margin: auto;
+}
+
+h1.title {
+  font-size: 45px;
+  font-weight: bold;
+  margin: 0;
+  display: block;
+  float: left;
+}
+
+button {
+    border-radius: 0px;
+    border: 3px solid #ddd;
+    border-bottom: 4px solid #aaa;
+    background: #eee;
+    display: inline-block;
+    vertical-align: top;
+}
+
+button:hover {
+    background: #e7e7e7;
+}
+
+button:active {
+    border-bottom: 1px solid #ddd;
+    /*padding: 7px 10px 5px;*/
+}
+
+.heading-container {
+  margin-bottom: 10px;
+  padding: 5px;
+}
+
+.market-container {
+  border: 3px solid #ddd;
+  background: #eee;
+  margin-bottom: 10px;
+  padding: 5px;
+}
