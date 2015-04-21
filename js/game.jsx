@@ -93,8 +93,7 @@ var DaContainer = React.createClass({
 								  cash={this.state.money} />
 				<MarketContainer items={this.state.items}/>
 				<ControlContainer items={this.state.items}
-								  onBuyClick={this.handleBuySellAction} 
-								  onSellClick={this.handleBuySellAction}
+								  onBuySellClick={this.handleBuySellAction} 
 								  onNextDayClick={this.handleNextDayAction} />
 			</div>
 			);
@@ -139,7 +138,7 @@ var MarketContainer = React.createClass({
 
 var ControlContainer = React.createClass({
 	handleBuyAction: function () {
-		this.props.onBuyClick(
+		this.props.onBuySellClick(
             this.refs.buyItemIdInput.getDOMNode().value,
             this.refs.buyQuantityInput.getDOMNode().value,
             true
@@ -147,9 +146,9 @@ var ControlContainer = React.createClass({
 	},
 
 	handleSellAction: function () {
-		this.props.onBuyClick(
-            this.refs.buyItemIdInput.getDOMNode().value,
-            this.refs.buyQuantityInput.getDOMNode().value,
+		this.props.onBuySellClick(
+            this.refs.sellItemIdInput.getDOMNode().value,
+            this.refs.sellQuantityInput.getDOMNode().value,
             false
         );
 	},
