@@ -121,13 +121,13 @@ var MarketContainer = React.createClass({
 		var items = this.props.items;
 		return (
 			<div className="market-container">
-				<div>Market Price</div>
+				<div className="market-container-title">Market</div>
 					{items.map(function(item) {
-						return (<div>
-							<div>
-								<span>{item.itemName}</span> <span>{item.currentPrice} </span>元
-							</div>
-							<div><span>{item.inhandQuantity} 个</span></div>
+						return (<div className="item-container">
+								<img src="images/box.png" alt={item.itemName} />
+							<p>{item.itemName}</p>
+							<p className="item-price">$ {item.currentPrice}</p>
+							<p className="item-quantity">Qty: {item.inhandQuantity}</p>
 							</div>
 							);
 					})}

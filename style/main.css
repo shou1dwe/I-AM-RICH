@@ -6,6 +6,7 @@ src: url("pixel-emulator.otf") format("opentype");
 * {
   font-family: PixelEmulator;
   color: #776e65;
+  box-sizing: border-box;
 }
 
 html, body {
@@ -16,21 +17,14 @@ html, body {
   margin: auto;
 }
 
-h1.title {
-  font-size: 45px;
-  font-weight: bold;
-  margin: 0;
-  display: block;
-  float: left;
-}
-
 button {
-    border-radius: 0px;
-    border: 3px solid #ddd;
-    border-bottom: 4px solid #aaa;
-    background: #eee;
-    display: inline-block;
-    vertical-align: top;
+  border-radius: 0px;
+  border: 3px solid #ddd;
+  border-bottom: 4px solid #aaa;
+  font-size: 12px;
+  background: #eee;
+  display: inline-block;
+  vertical-align: top;
 }
 
 button:hover {
@@ -42,6 +36,11 @@ button:active {
     /*padding: 7px 10px 5px;*/
 }
 
+.row {
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
 .heading-container {
   margin-bottom: 10px;
   padding: 5px;
@@ -50,6 +49,65 @@ button:active {
 .market-container {
   border: 3px solid #ddd;
   background: #eee;
-  margin-bottom: 10px;
-  padding: 5px;
+  margin-right: -15px;
+  margin-left: -15px;
+  margin-bottom: 20px;
+}
+
+.market-container:after, .market-container:before{
+  clear: both;
+  display: table;
+  content: " ";
+}
+
+.market-container-title {
+  width: 100%;
+  font-size: 25px;
+  font-weight: bold;
+  padding: 10px;
+}
+
+.item-container {
+  width: 33%;
+  background-color: #fafafa;
+  background-clip: content-box;
+  float: left;
+  position: relative;
+  min-height: 1px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.item-container:after, .item-container:before{
+  clear: both;
+  display: table;
+  content: " ";
+  padding: 5px 0 5px 0;
+}
+
+.item-container img {
+  max-width: 60%;
+  margin: auto;
+  height: auto;
+  display:block;
+}
+
+.item-container p {
+  margin: 10px;
+}
+
+.item-container .item-price, .item-container .item-quantity {
+  font-size: 13px;
+  text-align: right;
+  margin:auto;
+  padding: 0 10px 3px 10px;
+}
+
+@media (max-width: 480px) { 
+  html, body {
+    font-size: 12px;
+    padding: 10px;
+  }
 }
