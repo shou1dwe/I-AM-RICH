@@ -123,12 +123,14 @@ var MarketContainer = React.createClass({
 			<div className="market-container">
 				<div className="market-container-title">Market</div>
 					{items.map(function(item) {
-						return (<div className="item-container">
+						return (<div className="item-container-outer">
+							<div className="item-container">
+							<div className="item-container-overlay"></div>
 								<img src="images/box.png" alt={item.itemName} />
 							<p>{item.itemName}</p>
 							<p className="item-price">$ {item.currentPrice}</p>
 							<p className="item-quantity">Qty: {item.inhandQuantity}</p>
-							</div>
+							</div></div>
 							);
 					})}
 			</div>

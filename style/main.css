@@ -25,6 +25,8 @@ button {
   background: #eee;
   display: inline-block;
   vertical-align: top;
+  padding-right: 5px;
+  padding-left: 5px;
 }
 
 button:hover {
@@ -32,8 +34,8 @@ button:hover {
 }
 
 button:active {
-    border-bottom: 1px solid #ddd;
-    /*padding: 7px 10px 5px;*/
+  border-bottom: 2px solid #bbb;
+  margin-bottom: 2px;
 }
 
 .row {
@@ -64,12 +66,11 @@ button:active {
   width: 100%;
   font-size: 25px;
   font-weight: bold;
-  padding: 10px;
+  padding: 5px;
 }
 
-.item-container {
+.item-container-outer {
   width: 33%;
-  background-color: #fafafa;
   background-clip: content-box;
   float: left;
   position: relative;
@@ -78,6 +79,22 @@ button:active {
   padding-bottom: 10px;
   padding-right: 15px;
   padding-left: 15px;
+}
+
+.item-container {
+  background-color: #fafafa;
+  border-top: 2px solid #e7e7e7;
+  border-right: 3px solid #ddd;  
+  border-bottom: 4px solid #aaa;
+  border-left: 3px solid #ddd;
+}
+
+.item-container-overlay {  
+
+}
+
+.item-container:hover .item-container-overlay {
+
 }
 
 .item-container:after, .item-container:before{
@@ -105,9 +122,28 @@ button:active {
   padding: 0 10px 3px 10px;
 }
 
-@media (max-width: 480px) { 
+@media screen and (max-width: 480px) { 
   html, body {
-    font-size: 12px;
+    font-size: 15px;
     padding: 10px;
+  }
+
+  button {
+    font-size: 15px;
+  }
+
+  .market-container-title {
+    font-size: 18px;
+  }
+
+  .item-container-outer {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-right: 3px;
+    padding-left: 3px;
+  }
+
+  .item-container .item-price, .item-container .item-quantity {
+    font-size: 10px;
   }
 }
