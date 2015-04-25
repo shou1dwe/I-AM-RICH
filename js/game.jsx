@@ -19,7 +19,10 @@ var DaContainer = React.createClass({
 			day: 1,
 			money: INIT_CASH,
 			totalAsset: INIT_CASH,
-			items: items
+			items: items,
+			questionContext: {
+				message: "福建江西交界的集市上，一个少年正在为当上英语老师的梦想拼命赚钱。"
+			}
 		};
 	},
 
@@ -82,7 +85,15 @@ var DaContainer = React.createClass({
 	},
 
 	handleNotification: function(message, img) {
-		alert(message);
+		this.setState(function() {
+			return { questionContext: { message: message } };
+		});
+	},
+
+	handleQuestionResponse: function(){
+		this.setState(function() {
+			return { questionContext: null };
+		});		
 	},
 
 	render: function(){
@@ -95,6 +106,8 @@ var DaContainer = React.createClass({
 				<ControlContainer items={this.state.items}
 								  onBuySellClick={this.handleBuySellAction} 
 								  onNextDayClick={this.handleNextDayAction} />
+				<QuestionContainer questionContext={this.state.questionContext} 
+								   onQuestionResponse={this.handleQuestionResponse}/>
 			</div>
 			);
 	}
@@ -185,6 +198,28 @@ var ControlContainer = React.createClass({
 					<br />
 					<button onClick={this.props.onNextDayClick}>New Day</button>
 				</div>
+			</div>
+		);
+	}
+});
+
+var QuestionContainer =  React.createClass({
+	handleClose: function(){
+		this.props.onQuestionResponse();
+	},
+
+	render: function(){
+		var inlineStyle = this.props.questionContext != null ? { display: 'block' } : { };
+		var message = this.props.questionContext != null ? this.props.questionContext.message : "";
+		return (
+			<div className="question-container" style={inlineStyle}>
+				<div className="question-modal">
+					<p>{message}</p>
+					<p>
+						<button onClick={this.handleClose}>Dalah!</button>
+					</p>
+				</div>
+				<div className="question-background" onClick={this.handleClose}></div>
 			</div>
 		);
 	}
