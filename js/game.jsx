@@ -208,10 +208,11 @@ var QuestionContainer =  React.createClass({
 	},
 
 	render: function(){
-		var inlineStyle = this.props.questionContext != null ? { display: 'block' } : { };
+		console.log(this.props.questionContext);
+		var parentCss = this.props.questionContext != null ? "question-container fade" : "question-container";
 		var message = this.props.questionContext != null ? this.props.questionContext.message : "";
 		return (
-			<div className="question-container" style={inlineStyle}>
+			<div className={parentCss}>
 				<div className="question-modal">
 					<p>{message}</p>
 					<p>
