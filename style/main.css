@@ -83,19 +83,14 @@ button:active {
 }
 
 .item-container {
+  width: 100%;
   background-color: #fafafa;
   border-top: 2px solid #e7e7e7;
   border-right: 3px solid #ddd;  
   border-bottom: 4px solid #aaa;
   border-left: 3px solid #ddd;
-}
-
-.item-container-overlay {  
-
-}
-
-.item-container:hover .item-container-overlay {
-
+  padding: 0px;
+  font-size: 15px;
 }
 
 .item-container:after, .item-container:before{
@@ -103,6 +98,17 @@ button:active {
   display: table;
   content: " ";
   padding: 5px 0 5px 0;
+}
+
+.item-mask {
+   background: rgba(0,0,0,0);
+   transition: opacity .25s ease-in-out;
+   -moz-transition: opacity .25s ease-in-out;
+   -webkit-transition: opacity .25s ease-in-out;
+}
+
+.item-mask:active {
+  opacity: 0.5;
 }
 
 .item-container img {
