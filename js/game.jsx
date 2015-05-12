@@ -7,6 +7,8 @@ var QUESTION_NEW_DAY = 1; // params: day
 var QUESTION_ITEM_TRANSACTION = 2; // params: item
 var QUESTION_MARKET_EVENT = 3; // params: item, event
 
+var Transition = React.addons.CSSTransitionGroup;
+
 var DaContainer = React.createClass({
 	getInitialState: function() {
 		var items = [
@@ -122,8 +124,12 @@ var DaContainer = React.createClass({
 				<ControlContainer items={this.state.items}
 								  onBuySellClick={this.handleBuySellAction} 
 								  onNextDayClick={this.handleNextDayAction} />
-				<QuestionContainer questionContext={this.state.questionContext} 
-								   onQuestionResponse={this.handleQuestionResponse}/>
+				<Transition transitionName="question-container">
+					{this.state.questionContext.type == QUESTION_DISMISSED ? null :
+						<QuestionContainer questionContext={this.state.questionContext} 
+										   onQuestionResponse={this.handleQuestionResponse}/>
+					}
+				</Transition>
 			</div>
 			);
 	}
@@ -224,10 +230,9 @@ var QuestionContainer =  React.createClass({
 	},
 
 	render: function(){
-		var parentCss = this.props.questionContext.type != QUESTION_DISMISSED ? "question-container fade" : "question-container";
 		var message = this.props.questionContext.type != QUESTION_DISMISSED ? this.props.questionContext.message : "";
 		return (
-			<div className={parentCss}>
+			<div key={this.props.questionContext.type} className="question-container">
 				<div className="question-modal">
 					<p>{message}</p>
 					<p>
