@@ -2,6 +2,11 @@
 var LAST_DAY = 10;
 var INIT_CASH = 100;
 
+var QUESTION_DISMISSED = 0;
+var QUESTION_NEW_DAY = 1; // params: day
+var QUESTION_ITEM_TRANSACTION = 2; // params: item
+var QUESTION_MARKET_EVENT = 3; // params: item, event
+
 var DaContainer = React.createClass({
 	getInitialState: function() {
 		var items = [
@@ -21,7 +26,8 @@ var DaContainer = React.createClass({
 			totalAsset: INIT_CASH,
 			items: items,
 			questionContext: {
-				message: "福建江西交界的集市上，一个少年正在为当上英语老师的梦想拼命赚钱。"
+				type: QUESTION_DISMISSED,
+				params: {}
 			}
 		};
 	},
@@ -84,16 +90,26 @@ var DaContainer = React.createClass({
 		}	
 	},
 
-	handleNotification: function(message, img) {
+	handleNotification: function(message) {
 		this.setState(function() {
-			return { questionContext: { message: message } };
-		});
+			return { 
+				questionContext: {
+					type: QUESTION_NEW_DAY,
+					params: { 
+						day: -1
+					} 
+				}
+		}});
 	},
 
 	handleQuestionResponse: function(){
 		this.setState(function() {
-			return { questionContext: null };
-		});		
+			return { 
+				questionContext: {
+					type: QUESTION_DISMISSED,
+					params: { } 
+				}
+		}});		
 	},
 
 	render: function(){
@@ -208,9 +224,8 @@ var QuestionContainer =  React.createClass({
 	},
 
 	render: function(){
-		console.log(this.props.questionContext);
-		var parentCss = this.props.questionContext != null ? "question-container fade" : "question-container";
-		var message = this.props.questionContext != null ? this.props.questionContext.message : "";
+		var parentCss = this.props.questionContext.type != QUESTION_DISMISSED ? "question-container fade" : "question-container";
+		var message = this.props.questionContext.type != QUESTION_DISMISSED ? this.props.questionContext.message : "";
 		return (
 			<div className={parentCss}>
 				<div className="question-modal">
