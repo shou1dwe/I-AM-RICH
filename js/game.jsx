@@ -16,11 +16,10 @@ var DaContainer = React.createClass({
 				new Something('路边摊肉串', 10),
 				new Something('二手自行车', 100),
 				new Something('勾兑劣酒', 1000)
-			];
-
-		for (var i in items) {
-			items[i].updatePrice();
-		}
+			].map(function(row){
+				row.updatePrice();
+				return row;
+			});
 
 		return {
 			day: 1,
