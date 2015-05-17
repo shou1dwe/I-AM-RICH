@@ -4,8 +4,9 @@ var INIT_CASH = 100;
 
 var QUESTION_DISMISSED = 0;
 var QUESTION_NEW_DAY = 1; // params: day
-var QUESTION_ITEM_TRANSACTION = 2; // params: item
-var QUESTION_MARKET_EVENT = 3; // params: item, event
+var QUESTION_LAST_DAY = 2; // params: totalAsset
+var QUESTION_ITEM_TRANSACTION = 3; // params: item
+var QUESTION_MARKET_EVENT = 4; // params: item, event
 
 var Transition = React.addons.CSSTransitionGroup;
 
@@ -69,8 +70,7 @@ var DaContainer = React.createClass({
 
 	handleNextDayAction: function(key, event) {
 		if(this.state.day + 1 > LAST_DAY){
-			this.handleNotification("Last day! Total asset: " + this.state.totalAsset + ". Game reset...");
-			this.replaceState(this.getInitialState());
+			this.handleLastDayQuestion(this.state.totalAsset);
 		} else {
 			var items = this.state.items.slice();
 			var sumValue = 0;
@@ -87,30 +87,33 @@ var DaContainer = React.createClass({
 				};
 			});
 
-			this.handleNotification("It is day " + (this.state.day+1));		
+			this.handleNextDayQuestion(this.state.day+1);		
 		}	
 	},
 
-	handleNotification: function(message) {
+	handleLastDayQuestion: function(totalAsset) {
+		this.handleNotification(QUESTION_LAST_DAY, {totalAsset: totalAsset});
+	},
+
+	handleNextDayQuestion: function(day) {
+		this.handleNotification(QUESTION_NEW_DAY, {day: day});
+	},
+
+	handleNotification: function(type, params) {
 		this.setState(function() {
-			return { 
-				questionContext: {
-					type: QUESTION_NEW_DAY,
-					params: { 
-						day: -1
-					} 
-				}
-		}});
+			return {questionContext: {type: type, params: params}}
+		});
 	},
 
 	handleQuestionResponse: function(){
-		this.setState(function() {
-			return { 
-				questionContext: {
-					type: QUESTION_DISMISSED,
-					params: { } 
-				}
-		}});		
+		switch(this.state.questionContext.type){
+			case QUESTION_LAST_DAY:
+				this.replaceState(this.getInitialState());
+			break;
+			default:
+				this.handleNotification(QUESTION_DISMISSED, {});
+			break;
+		}
 	},
 
 	render: function(){
@@ -229,7 +232,15 @@ var QuestionContainer =  React.createClass({
 	},
 
 	render: function(){
-		var message = this.props.questionContext.type != QUESTION_DISMISSED ? this.props.questionContext.message : "";
+		var message = "";
+		switch(this.props.questionContext.type) {
+			case QUESTION_NEW_DAY:
+				message = "It is day " + this.props.questionContext.params.day
+			break;
+			case QUESTION_LAST_DAY:
+				message = "Last day! Total asset: " + this.props.questionContext.params.totalAsset + ". Game reset...";
+			break;
+		}
 		return (
 			<div key={this.props.questionContext.type} className="question-container">
 				<div className="question-modal">
