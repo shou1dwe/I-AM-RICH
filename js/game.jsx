@@ -235,6 +235,7 @@ var QuestionInfoComponent = React.createClass({
 var QuestionItemTransacComponent = React.createClass({
 	getInitialState: function() {
 		return {
+			quantity: 0,
 			warning: ""
 		};
 	},
@@ -249,24 +250,60 @@ var QuestionItemTransacComponent = React.createClass({
 
 	onBuySell: function (isBuy) {
 		var item = this.props.item, money = this.props.money;
-		var quantity = parseInt(React.findDOMNode(this.refs.quantity).innerHTML);
+		var quantity = this.state.quantity;
 		if(isBuy && money < quantity * item.currentPrice){
 			this.warn("Insufficient Fund");
 		} else if (!isBuy && item.inhandQuantity < quantity){
 			this.warn("Insufficient Stock");
 		} else {
-			this.warn("");
+			this.replaceState(this.getInitialState());
 			this.props.handleBuySell(item.itemId, quantity, isBuy);
 		}
+	},
+
+	onButtonClick: function (value) {
+		this.setState(function(previousState, currentProps) {
+			var quantity = 0;
+			switch(value) {
+				case 'A':
+					quantity = 0;
+				break;
+				case 'B':
+					quantity = previousState.quantity > 0 ? Math.floor(previousState.quantity/10) : previousState.quantity;
+				break;
+				default:
+					quantity = previousState.quantity < 100000000000 ? previousState.quantity * 10 + parseInt(value) : previousState.quantity;
+				break;
+			}
+			return {
+				warning: "",
+				quantity: quantity
+			}
+		});
 	},
 
 	render: function(){
 		var item = this.props.item;
 		return (
 			<div className="question-modal">
-				<p>{item.itemName}</p>
+				<p>{item.itemName} ${item.currentPrice}<br />
+				Inhand Qty: {item.inhandQuantity}<br />
+				Cash: {this.props.money}</p>
 				<p>{this.state.warning}</p>
-				<p>Qty: <div ref="quantity">1</div>
+				<p>{this.state.quantity}</p>
+				<p>
+					<CalculatorButton displayText="1" value="1" onButtonClick={this.onButtonClick} />
+					<CalculatorButton displayText="2" value="2" onButtonClick={this.onButtonClick} />
+					<CalculatorButton displayText="3" value="3" onButtonClick={this.onButtonClick} />
+					<CalculatorButton displayText="4" value="4" onButtonClick={this.onButtonClick} />
+					<CalculatorButton displayText="5" value="5" onButtonClick={this.onButtonClick} />
+					<CalculatorButton displayText="6" value="6" onButtonClick={this.onButtonClick} />
+					<CalculatorButton displayText="7" value="7" onButtonClick={this.onButtonClick} />
+					<CalculatorButton displayText="8" value="8" onButtonClick={this.onButtonClick} />
+					<CalculatorButton displayText="9" value="9" onButtonClick={this.onButtonClick} />
+					<CalculatorButton displayText="CLEAR" value="A" onButtonClick={this.onButtonClick} />
+					<CalculatorButton displayText="0" value="0" onButtonClick={this.onButtonClick} />
+					<CalculatorButton displayText="<" value="B" onButtonClick={this.onButtonClick} />
 				</p>
 				<p>
 					<button onClick={this.onBuySell.bind(this, true)}>BUY</button>
@@ -277,4 +314,16 @@ var QuestionItemTransacComponent = React.createClass({
 	}
 });
 
+var CalculatorButton = React.createClass({
+	render: function() {
+		var self = this;
+		return (
+			<div className="cal-button-outer cal-button-mask">
+				<button className="cal-button" onClick={self.props.onButtonClick.bind(this, self.props.value)}>{this.props.displayText}</button>
+			</div>
+		);
+	}
+});
+
+					<CalculatorButton displayText="6" value="6" onButtonClick={this.onButtonClick} />
 React.render(<DaContainer />, document.getElementById('container'));
