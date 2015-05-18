@@ -100,6 +100,14 @@ var DaContainer = React.createClass({
 		this.handleNotification(QUESTION_NEW_DAY, {day: day});
 	},
 
+	handleItemClick: function(itemId){
+		this.handleNotification(QUESTION_ITEM_TRANSACTION, {
+			item: this.state.items[itemId],
+			money: this.state.money,
+			onItemBuySell: this.handleBuySellAction
+		});
+	},
+
 	handleNotification: function(type, params) {
 		this.setState(function() {
 			return {questionContext: {type: type, params: params}}
@@ -123,7 +131,7 @@ var DaContainer = React.createClass({
 				<HeadingContainer day={this.state.day} 
 								  totalAsset={this.state.totalAsset}
 								  cash={this.state.money} />
-				<MarketContainer items={this.state.items}/>
+				<MarketContainer items={this.state.items} onItemClick={this.handleItemClick}/>
 				<ControlContainer onNextDayClick={this.handleNextDayAction} />
 				<Transition transitionName="question-container">
 					{this.state.questionContext.type == QUESTION_DISMISSED ? null :
@@ -154,13 +162,13 @@ var HeadingContainer = React.createClass({
 
 var MarketContainer = React.createClass({
 	render: function(){
-		var items = this.props.items;
+		var self = this, items = this.props.items;
 		return (
 			<div className="market-container">
 				<div className="market-container-title">Market</div>
 					{items.map(function(item) {
 						return (<div className="item-container-outer item-mask">
-							<button className="item-container">
+							<button className="item-container" onClick={self.props.onItemClick.bind(this, item.itemId)}>
 							<img src="images/box.png" alt={item.itemName} />
 							<p>{item.itemName}</p>
 							<p className="item-price">$ {item.currentPrice}</p>
