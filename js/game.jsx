@@ -239,14 +239,23 @@ var QuestionItemTransacComponent = React.createClass({
 		};
 	},
 
+	warn: function(content) {
+		this.setState(function(previousState, currentProps) {
+				return {
+					warning: content
+				};
+			});
+	},
+
 	onBuySell: function (isBuy) {
 		var item = this.props.item, money = this.props.money;
 		var quantity = parseInt(React.findDOMNode(this.refs.quantity).innerHTML);
 		if(isBuy && money < quantity * item.currentPrice){
-			console.log("Insufficient Fund");
+			this.warn("Insufficient Fund");
 		} else if (!isBuy && item.inhandQuantity < quantity){
-			console.log("Insufficient Stock");
+			this.warn("Insufficient Stock");
 		} else {
+			this.warn("");
 			this.props.handleBuySell(item.itemId, quantity, isBuy);
 		}
 	},
