@@ -35,34 +35,21 @@ var DaContainer = React.createClass({
 		};
 	},
 
-	handleBuySellAction: function(itemId, quantityInput, isBuy) {
+	handleBuySellAction: function(itemId, quantity, isBuy) {
 		this.setState(function(previousState, currentProps) {
-			var quantity = parseInt(quantityInput);
 			var items = previousState.items.slice();
 			var money = previousState.money;
-		
 			if(quantity > 0 && itemId >= 0 && itemId < items.length){
 				var item = items[itemId];
 				var sumPrice = item.currentPrice * quantity;
-
 				if(isBuy){
-					if(money < sumPrice) {
-						this.handleNotification("Money inhand not enough! Buying " + quantity + " " + item.itemName + " @" + item.currentPrice + " has: " + money);
-						return ;
-					} else {
-						money -= sumPrice;
-						item.inhandQuantity += quantity;
-						item.inhandCost += sumPrice;
-					}					
+					money -= sumPrice;
+					item.inhandQuantity += quantity;
+					item.inhandCost += sumPrice;
 				} else {
-					if(item.inhandQuantity < quantity) {
-						this.handleNotification("Quantity inhand not enough! Selling " + quantity + " " + item.itemName + " @" + item.currentPrice + " has: " + item.inhandQuantity );
-						return ;
-					} else {
-						money += sumPrice;
-						item.inhandCost *= (1 - quantity/item.inhandQuantity);
-						item.inhandQuantity -= quantity;
-					}					
+					money += sumPrice;
+					item.inhandCost *= (1 - quantity/item.inhandQuantity);
+					item.inhandQuantity -= quantity;
 				}
 				var questionContext = previousState.questionContext;
 				questionContext.params.item = item;
