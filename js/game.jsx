@@ -64,7 +64,10 @@ var DaContainer = React.createClass({
 						item.inhandQuantity -= quantity;
 					}					
 				}
-				return { money: money, items: items};
+				var questionContext = previousState.questionContext;
+				questionContext.params.item = item;
+				questionContext.params.money = money;
+				return { money: money, items: items, questionContext: questionContext};
 			}
 		});
 	},
