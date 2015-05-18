@@ -200,24 +200,79 @@ var QuestionContainer =  React.createClass({
 	},
 
 	render: function(){
-		var message = "";
-		switch(this.props.questionContext.type) {
+		var context = this.props.questionContext;
+		var switchablePart;
+		switch(context.type) {
 			case QUESTION_NEW_DAY:
-				message = "It is day " + this.props.questionContext.params.day
+				switchablePart = <QuestionInfoComponent 
+					message={"It is day " + context.params.day}
+	 				handleClose={this.handleClose} />
 			break;
 			case QUESTION_LAST_DAY:
-				message = "Last day! Total asset: " + this.props.questionContext.params.totalAsset + ". Game reset...";
+				switchablePart = <QuestionInfoComponent 
+					message={"Last day! Total asset: " + context.params.totalAsset + ". Game reset..."}
+	 				handleClose={this.handleClose} />
+			break;
+			case QUESTION_ITEM_TRANSACTION:
+				switchablePart = <QuestionItemTransacComponent item={context.params.item}
+					money={context.params.money}
+					handleBuySell={context.params.onItemBuySell}
+					handleClose={this.handleClose} />
 			break;
 		}
 		return (
-			<div key={this.props.questionContext.type} className="question-container">
-				<div className="question-modal">
-					<p>{message}</p>
-					<p>
-						<button onClick={this.handleClose}>Dalah!</button>
-					</p>
-				</div>
+			<div key={context.type} className="question-container">
+				{switchablePart}
 				<div className="question-background" onClick={this.handleClose}></div>
+			</div>
+		);
+	}
+});
+
+var QuestionInfoComponent = React.createClass({
+	render: function(){
+		return (
+			<div className="question-modal">
+				<p>{this.props.message}</p>
+				<p>
+					<button onClick={this.props.handleClose}>Dalah!</button>
+				</p>
+			</div>
+		);
+	}
+});
+
+var QuestionItemTransacComponent = React.createClass({
+	getInitialState: function() {
+		return {
+			warning: ""
+		};
+	},
+
+	onBuySell: function (isBuy) {
+		var item = this.props.item, money = this.props.money;
+		var quantity = parseInt(React.findDOMNode(this.refs.quantity).innerHTML);
+		if(isBuy && money < quantity * item.currentPrice){
+			console.log("Insufficient Fund");
+		} else if (!isBuy && item.inhandQuantity < quantity){
+			console.log("Insufficient Stock");
+		} else {
+			this.props.handleBuySell(item.itemId, quantity, isBuy);
+		}
+	},
+
+	render: function(){
+		var item = this.props.item;
+		return (
+			<div className="question-modal">
+				<p>{item.itemName}</p>
+				<p>{this.state.warning}</p>
+				<p>Qty: <div ref="quantity">1</div>
+				</p>
+				<p>
+					<button onClick={this.onBuySell.bind(this, true)}>BUY</button>
+					<button onClick={this.onBuySell.bind(this, false)}>SELL</button>
+				</p>
 			</div>
 		);
 	}
