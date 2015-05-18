@@ -123,9 +123,7 @@ var DaContainer = React.createClass({
 								  totalAsset={this.state.totalAsset}
 								  cash={this.state.money} />
 				<MarketContainer items={this.state.items}/>
-				<ControlContainer items={this.state.items}
-								  onBuySellClick={this.handleBuySellAction} 
-								  onNextDayClick={this.handleNextDayAction} />
+				<ControlContainer onNextDayClick={this.handleNextDayAction} />
 				<Transition transitionName="question-container">
 					{this.state.questionContext.type == QUESTION_DISMISSED ? null :
 						<QuestionContainer questionContext={this.state.questionContext} 
@@ -175,50 +173,11 @@ var MarketContainer = React.createClass({
 });
 
 var ControlContainer = React.createClass({
-	handleBuyAction: function () {
-		this.props.onBuySellClick(
-            this.refs.buyItemIdInput.getDOMNode().value,
-            this.refs.buyQuantityInput.getDOMNode().value,
-            true
-        );
-	},
-
-	handleSellAction: function () {
-		this.props.onBuySellClick(
-            this.refs.sellItemIdInput.getDOMNode().value,
-            this.refs.sellQuantityInput.getDOMNode().value,
-            false
-        );
-	},
-
 	render: function(){
 		var items = this.props.items;
 		return (
 			<div className="control-container">
-				<div className="buy-container">
-					<select ref="buyItemIdInput">
-						{items.map(function(item, index) {
-							return (
-								<option value={index}>{item.itemName}</option>
-								);
-						})}
-					</select>
-					<input type="number" ref="buyQuantityInput" />
-					<button onClick={this.handleBuyAction} >Buy</button>
-				</div>
-				<div className="sell-container">
-					<select ref="sellItemIdInput" >
-						{items.map(function(item, index) {
-							return (
-								<option value={index}>{item.itemName}</option>
-								);
-						})}					
-					</select>
-					<input type="number" ref="sellQuantityInput" />
-					<button onClick={this.handleSellAction}>Sell</button>
-				</div>
 				<div className="offwork-container">
-					<br />
 					<button onClick={this.props.onNextDayClick}>New Day</button>
 				</div>
 			</div>
