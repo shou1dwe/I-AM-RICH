@@ -6,6 +6,10 @@ var Something = function(itemName, seedPrice){
 	this.inhandCost = 0.0;
 };
 
+Something.prototype.setItemId = function(itemId) {
+	this.itemId = itemId;
+};
+
 Something.prototype.updatePrice = function() {
 	this.currentPrice = Math.round(this.seedPrice * (Math.random() * 2 + 0.5));
 	return this.currentPrice;

@@ -17,7 +17,8 @@ var DaContainer = React.createClass({
 				new Something('路边摊肉串', 10),
 				new Something('二手自行车', 100),
 				new Something('勾兑劣酒', 1000)
-			].map(function(row){
+			].map(function(row, index){
+				row.setItemId(index);
 				row.updatePrice();
 				return row;
 			});
