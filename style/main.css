@@ -16,6 +16,12 @@ html, body {
   max-width: 768px;
   padding: 10px;
   margin: auto;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 button {
@@ -34,9 +40,8 @@ button:hover {
     background: #e7e7e7;
 }
 
-button:active {
-  border-bottom: 2px solid #bbb;
-  margin-bottom: 2px;
+button:focus{
+  outline: none;
 }
 
 .row {
