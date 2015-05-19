@@ -185,27 +185,33 @@ button:focus{
   border-left: 5px solid #999;
 }
 
-.cal-button-outer {
-  width: 33%;
-  background-clip: content-box;
-  float: left;
-  position: relative;
-  min-height: 1px;
-  padding-top: 2px;
-  padding-bottom: 2px;
-  padding-right: 2px;
-  padding-left: 2px;
+.question-graph {
+  height: 120px;
+  width: 100%;
+}
+
+.cal-container {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.cal-display {
+  width: 98.5%;
+  margin: 0px auto 10px auto;
+  padding: 5px 20px;
+  background: #fefefe;
+  border: 3px dotted #e7e7e7;
+  text-align: right;
 }
 
 .cal-button {
   width: 100%;
   background-color: #fafafa;
-  border-top: 2px solid #e7e7e7;
-  border-right: 3px solid #ddd;  
-  border-bottom: 4px solid #aaa;
-  border-left: 3px solid #ddd;
-  padding: 5px 0px;
-  font-size: 10px;
+  border-top: 1px solid #e7e7e7;
+  border-right: 2px solid #ddd;  
+  border-bottom: 2px solid #aaa;
+  border-left: 2px solid #ddd;
+  font-size: 15px;
 }
 
 .cal-button:after, .cal-button:before{
@@ -223,7 +229,15 @@ button:focus{
 }
 
 .cal-button-mask:active {
-  opacity: 0.5;
+  opacity: 0.8;
+}
+
+.cal-button-buy {
+  background-color: #ffdfdf
+}
+
+.cal-button-sell {
+  background-color: #dfffdf
 }
 
 @media screen and (max-width: 480px) { 
@@ -252,10 +266,14 @@ button:focus{
   }
 
   .question-modal {
-    margin: 80px 15px;
+    margin: 30px 15px;
   }
 
   .question-background {
     cursor:pointer;
+  }
+
+  .cal-button {
+    font-size: 12px;
   }
 }

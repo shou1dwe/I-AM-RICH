@@ -286,29 +286,45 @@ var QuestionItemTransacComponent = React.createClass({
 		var item = this.props.item;
 		return (
 			<div className="question-modal">
-				<p>{item.itemName} ${item.currentPrice}<br />
+				<div className="question-graph">
+					(graph)
+				</div>
+				<div>{item.itemName} ${item.currentPrice}<br />
 				Inhand Qty: {item.inhandQuantity}<br />
-				Cash: {this.props.money}</p>
-				<p>{this.state.warning}</p>
-				<p>{this.state.quantity}</p>
-				<p>
-					<CalculatorButton displayText="1" value="1" onButtonClick={this.onButtonClick} />
-					<CalculatorButton displayText="2" value="2" onButtonClick={this.onButtonClick} />
-					<CalculatorButton displayText="3" value="3" onButtonClick={this.onButtonClick} />
-					<CalculatorButton displayText="4" value="4" onButtonClick={this.onButtonClick} />
-					<CalculatorButton displayText="5" value="5" onButtonClick={this.onButtonClick} />
-					<CalculatorButton displayText="6" value="6" onButtonClick={this.onButtonClick} />
-					<CalculatorButton displayText="7" value="7" onButtonClick={this.onButtonClick} />
-					<CalculatorButton displayText="8" value="8" onButtonClick={this.onButtonClick} />
-					<CalculatorButton displayText="9" value="9" onButtonClick={this.onButtonClick} />
-					<CalculatorButton displayText="CLEAR" value="A" onButtonClick={this.onButtonClick} />
-					<CalculatorButton displayText="0" value="0" onButtonClick={this.onButtonClick} />
-					<CalculatorButton displayText="<" value="B" onButtonClick={this.onButtonClick} />
-				</p>
-				<p>
-					<button onClick={this.onBuySell.bind(this, true)}>BUY</button>
-					<button onClick={this.onBuySell.bind(this, false)}>SELL</button>
-				</p>
+				Cash: {this.props.money}</div>
+				<div>{this.state.warning}</div>
+
+				<table className="cal-container">
+					<tr>
+						<td colSpan="3" className="cal-display">{this.state.quantity}. </td>
+					</tr>
+					<tr>
+						<td><CalculatorButton displayText="1" value="1" onButtonClick={this.onButtonClick} /></td>
+						<td><CalculatorButton displayText="2" value="2" onButtonClick={this.onButtonClick} /></td>
+						<td><CalculatorButton displayText="3" value="3" onButtonClick={this.onButtonClick} /></td>
+					</tr>
+					<tr>
+						<td><CalculatorButton displayText="4" value="4" onButtonClick={this.onButtonClick} /></td>
+						<td><CalculatorButton displayText="5" value="5" onButtonClick={this.onButtonClick} /></td>
+						<td><CalculatorButton displayText="6" value="6" onButtonClick={this.onButtonClick} /></td>
+					</tr>
+					<tr>
+						<td><CalculatorButton displayText="7" value="7" onButtonClick={this.onButtonClick} /></td>
+						<td><CalculatorButton displayText="8" value="8" onButtonClick={this.onButtonClick} /></td>
+						<td><CalculatorButton displayText="9" value="9" onButtonClick={this.onButtonClick} /></td>
+					</tr>
+					<tr>
+						<td><CalculatorButton displayText="CLEAR" value="A" onButtonClick={this.onButtonClick} /></td>
+						<td><CalculatorButton displayText="0" value="0" onButtonClick={this.onButtonClick} /></td>
+						<td><CalculatorButton displayText="<" value="B" onButtonClick={this.onButtonClick} /></td>
+					</tr>
+					<tr style={{height: '8px'}}></tr>
+					<tr>
+						<td><button className="cal-button cal-button-buy" onClick={this.onBuySell.bind(this, true)}>BUY</button></td>
+						<td><button className="cal-button cal-button-sell" onClick={this.onBuySell.bind(this, false)}>SELL</button></td>
+						<td><button className="cal-button " onClick={this.props.handleClose}>CANCEL</button></td>
+					</tr>
+				</table>
 			</div>
 		);
 	}
