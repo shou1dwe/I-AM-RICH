@@ -318,12 +318,11 @@ var CalculatorButton = React.createClass({
 	render: function() {
 		var self = this;
 		return (
-			<div className="cal-button-outer cal-button-mask">
+			<div className="cal-button-mask">
 				<button className="cal-button" onClick={self.props.onButtonClick.bind(this, self.props.value)}>{this.props.displayText}</button>
 			</div>
 		);
 	}
 });
 
-					<CalculatorButton displayText="6" value="6" onButtonClick={this.onButtonClick} />
 React.render(<DaContainer />, document.getElementById('container'));
