@@ -7,8 +7,14 @@
 	<link rel="stylesheet" type="text/css" href="style/main.css">
 	<script src="http://fb.me/react-with-addons-0.13.3.min.js"></script>
 	<script src="http://fb.me/JSXTransformer-0.13.1.js"></script>
+	<script src="js/fastclick.js"></script>
 </head>
 <body>
+	<script language="javascript">
+		var attachFastClick = Origami.fastclick;
+		attachFastClick(document.body);
+	</script>
+
 	<div id="container">
 	</div>
 
